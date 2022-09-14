@@ -10,6 +10,14 @@ Mappings:
 Conditions:
 
 Resources:
+  mySG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP # Required
+      GroupName: "String"
+      SecurityGroupIngress: SecurityGroupIngress
+      Tags: Tags
+      VpcId: "String" # later added
 
 Transform:
 
