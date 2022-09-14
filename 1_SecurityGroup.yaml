@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+  # select ec2 security group
+  LogicalID:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP # Required
+      GroupName: "String"
+      SecurityGroupIngress: SecurityGroupIngress
+      Tags: Tags
+      VpcId: "String" # later will be added
+Transform:
+
+Outputs:
