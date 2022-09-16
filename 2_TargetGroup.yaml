@@ -19,7 +19,7 @@ Resources:
       Port: 80
       Protocol: HTTP
       UnhealthyThresholdCount: 3
-      VpcId: "String" # later defined
+      VpcId: !Ref VPC # later defined
 
 Transform:
 
