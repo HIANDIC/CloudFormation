@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+
+Transform:
+
+Outputs:
+  DNSNameofALB:
+    Description: DNS Name of ALB
+    Value: !Join
+      - ""
+      - - "http://"
+        - !GetAtt myALB.DNSName
