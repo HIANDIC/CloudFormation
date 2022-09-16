@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+  InstanceType:
+    Description: Select your instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.micro
+      - t2.nano
+      - t3.nano
+
+  KeyName:
+    Description: Select your pair
+    Type: AWS::EC2::KeyPair::KeyName
+
+Metadata:
+
+Mappings:
+  RegionImageMap:
+    us-east-1:
+      AMI: ami-05fa00d4c63e32376
+    us-east-2:
+      AMI: ami-0233c2d874b811deb
+    us-west-1:
+      AMI: ami-0ed05376b59b90e46
+    us-west-2:
+      AMI: ami-0dc8f589abe99f538
+    eu-west-1:
+      AMI: ami-058b1b7fe545997ae
+
+Conditions:
+
+Resources:
+  myLT:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        ImageId: !FindInMap
+          - RegionImageMap
+          - !Ref "AWS::Region"
+          - AMi
+        InstanceType: !Ref InstanceType
+        KeyName: !Ref Keyname
+        SecurityGroupIds:
+          - !GetAtt mySG.GroupId
+        UserData: !Base64 |
+          #! /bin/bash
+          yum update -y
+          yum install -y httpd
+          TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+          && PRIVATE_IP=`curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/local-ipv4`
+          TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+          && PUBLIC_IP=`curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4` 
+          DATE_TIME=`date`
+          chmod -R 777 /var/www/html
+          echo "<html>
+          <head>
+              <title> Congratulations! You have created an instance from Launch Template</title>
+          </head>
+          <body>
+              <h1>This web server is launched from launch template by YOUR_NAME</h1>
+              <p>This instance is created at <b>$DATE_TIME</b></p>
+              <p>Private IP address of this instance is <b>$PRIVATE_IP</b></p>
+              <p>Public IP address of this instance is <b>$PUBLIC_IP</b></p>
+          </body>
+          </html>" > /var/www/html/index.html
+          systemctl start httpd
+          systemctl enable httpd
+
+Transform:
+
+Outputs:
