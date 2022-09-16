@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+  myASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      DesiredCapacity: "2"
+      HealthCheckGracePeriod: 90
+      HealthCheckType: ELB
+      LaunchTemplate:
+        LaunchTemplateId: !Ref myLT
+        Version: "1"
+      MaxSize: "3" # Required
+      MinSize: "1" # Required
+      TargetGroupARNs:
+        - !Ref myTG
+      VPCZoneIdentifier: !Ref Subnet
+
+Transform:
+
+Outputs:
