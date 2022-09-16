@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+  RegionImageMap:
+    us-east-1:
+      AMI: ami-05fa00d4c63e32376
+    us-east-2:
+      AMI: ami-0233c2d874b811deb
+    us-west-1:
+      AMI: ami-0ed05376b59b90e46
+    us-west-2:
+      AMI: ami-0dc8f589abe99f538
+    eu-west-1:
+      AMI: ami-058b1b7fe545997ae
+
+Conditions:
+
+Resources:
+
+Transform:
+
+Outputs:
