@@ -10,6 +10,20 @@ Subnet:
   Description: Select at least two subnets
   Type: List<AWS::EC2::Subnet::Id>
 
+KeyName:
+  Description: Select your key pair
+  Type: AWS::EC2::KeyPair::KeyName
+
+InstanceType:
+  Description: Select your instance type
+  Type: String
+  Default: t2.micro
+  AllowedValues:
+    - t2.micro
+    - t3.micro
+    - t2.nano
+    - t3.nano
+
 Metadata:
 
 Mappings:
