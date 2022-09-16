@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+  myALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      SecurityGroups:
+        - !GetAtt mySG.GroupId
+      Subnets: !Ref Subnet # in parameters we defined subnets as a list. Because of that we did not use a list of String.
+      Type: application
+
+Transform:
+
+Outputs:
