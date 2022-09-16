@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+  # we need to create Listener as a seperate resources. AWS want es like this.
+  myListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions: # Required
+        - Type: forward
+          TargetGroupArn: !Ref myTG
+      LoadBalancerArn: !Ref myALB # Required
+      Port: 80
+      Protocol: HTTP
+
+Transform:
+
+Outputs:
