@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+
+Parameters:
+  VPC:
+    Description: Select your VPC
+    Type: AWS::EC2::VPC::Id
+
+Subnet:
+  Description: Select at least two subnets
+  Type: List<AWS::EC2::Subnet::Id>
+
+Metadata:
+
+Mappings:
+
+Conditions:
+
+Resources:
+
+Transform:
+
+Outputs:
